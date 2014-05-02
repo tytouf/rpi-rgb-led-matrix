@@ -18,7 +18,11 @@
 // Clocking in a row takes about 3.4usec (TODO: this is actually per board)
 // Because clocking the data in is part of the 'wait time', we need to
 // substract that from the row sleep time.
+#if defined(bbb)
+static const int kRowClockTime = 1000;
+#elif defined(rpi)
 static const int kRowClockTime = 3400;
+#endif
 static const int kBaseTime = kRowClockTime;  // smallest possible value.
 
 const long row_sleep_nanos[8] = {   // Only using the first kPWMBits elements.

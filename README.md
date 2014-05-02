@@ -28,7 +28,7 @@ class in led-matrix.h does that.
 
 Connection
 ----------
-The RPi has 3.3V logic output level, but a display operated at 5V digests these
+The boards have 3.3V logic output level, but a display operated at 5V digests these
 logic levels just fine (also, the display will work well with 4V; watch out,
 they easily can sink 2 Amps if all LEDs are on). Since we only need output
 pins, we don't need to worry about level conversion back.
@@ -36,11 +36,11 @@ pins, we don't need to worry about level conversion back.
 We need 13 IO pins. It doesn't really matter to which GPIO pins these are
 connected (but the code assumes right now that the row address are adjacent
 bits) - if you use a different layout, change in the `IoBits` union in
-led-matrix.h if necessary (This was done with a Model B,
+led-matrix.h if necessary (For the RPI, this was done with a Model B,
 older versions have some different IOs on the header; check
 <http://elinux.org/RPi_Low-level_peripherals> )
 
-LED-Panel to GPIO with this code:
+LED-Panel to RPI GPIO with this code:
    * GND (Ground, '-') to ground of your Raspberry Pi
    * R1 (Red 1st bank)   : GPIO 17
    * G1 (Green 1st bank) : GPIO 18
@@ -52,6 +52,20 @@ LED-Panel to GPIO with this code:
    * OE- (neg. Output enable) : GPIO 2
    * CLK (Serial clock) : GPIO 3
    * STR (Strobe row data) : GPIO 4
+
+LED-Panel to BBB GPIO with this code:
+   * GND (Ground, '-') to ground of your BeagleBone Black
+   * R1 (Red 1st bank)   : P8 7
+   * G1 (Green 1st bank) : P8 8
+   * B1 (Blue 1st bank)  : P8 10
+   * R2 (Red 2nd bank)   : P8 40
+   * G2 (Green 2nd bank) : P8 37
+   * B2 (Blue 2nd bank)  : P8 38
+   * A, B, C, D (Row address) : P8 45, 46, 43, 44
+   * OE- (neg. Output enable) : P8 41
+   * CLK (Serial clock) : P8 42
+   * STR (Strobe row data) : P8 39
+
 
 Running
 -------

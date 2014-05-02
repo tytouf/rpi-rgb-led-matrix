@@ -1,6 +1,10 @@
+# Select board between bbb and rpi
+#BOARD=rpi
+BOARD=bbb
+
 CFLAGS=-Wall -O3 -g
-CXXFLAGS=-Wall -O3 -g
-OBJECTS=main.o gpio.o led-matrix.o thread.o
+CXXFLAGS=-Wall -O3 -g -D$(BOARD)
+OBJECTS=main.o $(BOARD)_gpio.o led-matrix.o thread.o
 BINARIES=led-matrix
 LDFLAGS=-lrt -lm -lpthread
 

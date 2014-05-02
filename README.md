@@ -1,5 +1,5 @@
-Controlling RGB LED display with Raspberry Pi GPIO
-==================================================
+Controlling RGB LED display with Raspberry Pi or BeagleBone Black GPIO
+======================================================================
 
 This is mostly experimental code.
 

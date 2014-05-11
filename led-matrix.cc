@@ -89,16 +89,6 @@ void RGBMatrix::SetPixel(uint8_t x, uint8_t y,
                          uint8_t red, uint8_t green, uint8_t blue) {
   if (x >= width() || y >= height()) return;
 
-  // My setup: having four panels connected  [>] [>]
-  //                                                 v
-  //                                         [<] [<]
-  // So we have up to column 64 one direction, then folding around. Lets map
-  // that backward
-  if (y > 31) {
-    x = 127 - x;
-    y = 63 - y;
-  }
-  
   // TODO: re-map values to be luminance corrected (sometimes called 'gamma').
   // Ideally, we had like 10PWM bits for this, but we're too slow for that :/
   

@@ -1,0 +1,45 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "ti,beaglebone", "ti,beaglebone-black";
+
+    part-number = "RGBPANEL-IO";
+    version = "00A0";
+
+    fragment@0 {
+        target = <&am33xx_pinmux>;
+        __overlay__ {
+            rgbpanelpins: pinmux_rgbpanelpins {
+                pinctrl-single,pins = <
+                            0x108 0x7  // GPIO2_2 Mode7, GPIO
+                            0x10C 0x7  // GPIO2_3 Mode7, GPIO
+                            0x110 0x7  // GPIO2_4 Mode7, GPIO
+
+                            0x118 0x7  // GPIO2_6 Mode7, GPIO
+                            0x11C 0x7  // GPIO2_7 Mode7, GPIO
+                            0x120 0x7  // GPIO2_8 Mode7, GPIO
+                            0x124 0x7  // GPIO2_9 Mode7, GPIO
+                            0x128 0x7  // GPIO2_10 Mode7, GPIO
+                            0x12C 0x7  // GPIO2_11 Mode7, GPIO
+                            0x130 0x7  // GPIO2_12 Mode7, GPIO
+                            0x134 0x7  // GPIO2_13 Mode7, GPIO
+                            0x138 0x7  // GPIO2_14 Mode7, GPIO
+                            0x13C 0x7  // GPIO2_15 Mode7, GPIO
+                              >;
+            };
+        };
+    };
+
+    fragment@1 {
+        target = <&ocp>;
+        __overlay__ {
+            rgbpanelpins_helper {
+                compatible = "bone-pinmux-helper";
+                pinctrl-names = "default";
+                pinctrl-0 = <&rgbpanelpins>;
+                status = "okay";
+            };
+        };
+    };
+};

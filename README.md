@@ -69,6 +69,20 @@ LED-Panel to BBB GPIO with this code:
 
 Running
 -------
+
+On the BeagleBone Black, you will first need to compile and load the device tree
+overlay:
+
+    $ dtc -O dtb -o RGBPANEL-IO-00A0.dtbo -b O -@ RGBPANEL-IO-00A0.dts
+    $ cp RGBPANEL-IO-00A0.dtbo /lib/firmware
+    $ echo RGBPANEL-IO > /sys/devices/bone_capemgr.9/slots
+
+Then force the multiplexer configuration:
+    $ for i in 2 3 4 6 7 8 9 10 11 12 13 14 15 16; do
+        echo `expr 64 + $i` > /sys/class/gpio/export
+        echo out > /sys/class/gpio/gpio`expr 64 + $i`/direction
+      done
+
 The main.cc has some testing demos. You need to run this as root so that the
 GPIO pins can be accessed:
 

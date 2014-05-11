@@ -79,7 +79,7 @@ void RGBMatrix::ClearScreen() {
 
 void RGBMatrix::FillScreen(uint8_t red, uint8_t green, uint8_t blue) {
   for (int x = 0; x < kColumns; ++x) {
-    for (int y = 0; y < 32; ++y) {
+    for (int y = 0; y < height(); ++y) {
       SetPixel(x, y, red, green, blue);
     }
   }
@@ -100,8 +100,8 @@ void RGBMatrix::SetPixel(uint8_t x, uint8_t y,
 
   for (int b = 0; b < kPWMBits; ++b) {
     uint8_t mask = 1 << b;
-    IoBits *bits = &bitplane_[b].row[y & 0xf].column[x];
-    if (y < 16) {   // Upper sub-panel.
+    IoBits *bits = &bitplane_[b].row[y & min(kDoubleRows-1, 0xf)].column[x];
+    if (y < kDoubleRows) {   // Upper sub-panel.
       bits->bits.r1 = (red & mask) == mask;
       bits->bits.g1 = (green & mask) == mask;
       bits->bits.b1 = (blue & mask) == mask;
